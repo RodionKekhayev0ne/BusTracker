@@ -2,16 +2,16 @@ const dbconect = require('./dbconect')
 const {dbservice} = require('./dbservice')
 const {createAdmin} = require('./dbservice')
 const mongoose = require('mongoose');
-const AdminDb = require('./models/admin');
-const ParentDb = require('./models/parent');
-const DriverDb = require('./models/driver');
-const ChildDb = require('./models/child');
-const Transport_listDb = require('./models/transport_list');
+const AdminDb = require('../models/admin');
+const ParentDb = require('../models/parent');
+const DriverDb = require('../models/driver');
+const ChildDb = require('../models/child');
+const Transport_listDb = require('../models/transport_list');
 const express = require('express');
 const {Model} = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const LocationDB = require("./models/location");
+const LocationDB = require("../models/location");
 const router = express.Router();
 
 async function getAllRecords() {

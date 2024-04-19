@@ -3,11 +3,11 @@ const {dbservice} = require('./dbservice')
 const {createAdmin} = require('./dbservice')
 const mongoose = require('mongoose');
 
-const AdminDb = require('./models/admin');
-const ParentDb = require('./models/parent');
-const DriverDb = require('./models/driver');
-const ChildDb = require('./models/child');
-const LocationDB = require('./models/location');
+const AdminDb = require('../models/admin');
+const ParentDb = require('../models/parent');
+const DriverDb = require('../models/driver');
+const ChildDb = require('../models/child');
+const LocationDB = require('../models/location');
 
 
 const express = require('express');

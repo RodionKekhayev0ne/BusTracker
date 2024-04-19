@@ -8,5 +8,10 @@
     "mongoose": "^8.2.3",
     "node.js": "^0.0.1-security",
     "uuid": "^9.0.1"
+  },
+  "scripts": {
+      "start": "node index.js", 
+      "build": "" 
   }
+
 }

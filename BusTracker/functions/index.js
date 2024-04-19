@@ -12,3 +12,13 @@ app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
 });
 
+app.get('*', (req, res) => {
+    res.send('Hello from Node.js API');
+  });
+  
+  // Обработка всех POST-запросов
+  app.post('*', (req, res) => {
+    res.send('POST request received');
+  });
+  
+
