@@ -166,7 +166,7 @@ router.get('/transport/students', async (req, res) => {
     });
 });
 
-router.get('/student/home', async (req, res) => {
+router.post('/student/home', async (req, res) => {
     const {child_id} = req.body;
     ChildDb.findById(child_id).then( async child => {
         if (child) {
