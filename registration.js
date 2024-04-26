@@ -29,7 +29,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.post('/register/admin/', async (req, res) => {
     try {
 
-        const { username, password} = req.body;
+        const { username,phone_number, password} = req.body;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -39,6 +39,7 @@ router.post('/register/admin/', async (req, res) => {
         adminData = {
             full_name: username,
             password:hashedPassword,
+            phone_number:phone_number,
             token: token
         }
 

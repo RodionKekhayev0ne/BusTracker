@@ -184,6 +184,156 @@ router.post('/student/home', async (req, res) => {
 
 
 
+router.post('/auth/parent', async (req, res) => {
+    const {number, password} = req.body;
+
+    ParentDb.findOne({phone_number: number}).then( async parent => {
+        if(parent){
+            bcrypt.compare(password, parent.password,(err, result)=>{
+                if(err){
+                    res.status(403).json({
+                        access:false,
+                        cause: "Incorrect values (password or phone_number)"
+                       });
+                }
+                if(result){
+                        
+
+
+                console.log("success");
+                ChildDb.findById(parent.child).then(async child => {
+                        Transport_listDb.find({}).then(data =>{
+                            data.forEach((list)=>{
+                                if (list.children.includes(parent.child)) {
+                                    res.status(200).json({
+                                        access:true,
+                                        parent_data: parent,
+                                        child_data: child,
+                                        transport_data: list,
+                                       });
+                                       }else{
+                                        res.status(200).json({
+                                            access:true,
+                                            parent_data: parent,
+                                            child_data: child,
+                                            transport_data: "No transportation now",
+                                           });
+                                       }
+                                   })
+                               });
+
+                              
+                
+                        });
+                }else{
+                    res.status(403).json({
+                        access:false,
+                        cause: "Incorrect values (password or phone_number)"
+                       });
+                }
+                    
+             });
+            
+           
+            }else{
+                res.status(403).json({
+                    access:false,
+                    cause: "Parent not foud"
+                   });
+            } 
+    })
+        
+});
+
+router.post('/auth/admin', async (req, res) => {
+    const {number, password} = req.body;
+     AdminDb.findOne({phone_number: number}).then( async admin => {
+        if(admin){
+            bcrypt.compare(password, admin.password,(err, result)=>{
+                if(err){
+                    res.status(403).json({
+                        access:false,
+                        cause: "Incorrect values (password or phone_number)"
+                       });
+                }
+                if(result){
+                    
+                    ChildDb.find({}).then( child =>{
+                        DriverDb.find({}).then(driver =>{
+                            Transport_listDb.find({}).then(async transport =>{
+                                ParentDb.find({}).then(parent => {
+                                    res.status(200).json({
+                                        access:true,
+                                        admin_data: admin,
+                                        children_data: child,
+                                        parents_data: parent,
+                                        drivers_data: driver,
+                                        transports_data: transport,
+                                       });
+                                })
+                                
+                            })
+                        })
+                    });
+                    
+
+                    
+                }else{
+                    res.status(403).json({
+                        access:false,
+                        cause: "Incorrect values (password or phone_number)"
+                       });
+                }
+            }
+        )}else{
+            res.status(403).json({
+                access:false,
+                cause: "Admin not found"
+               });
+        }
+    })
+});
+
+router.post('/auth/driver', async (req, res) => {
+    const {number, password} = req.body;
+
+    DriverDb.findOne({phone_number: number}).then( drivert => {
+        if(drivert){
+            bcrypt.compare(password, drivert.password,(err, result)=>{
+                if(err){
+                    res.status(403).json({
+                        access:false,
+                        cause: "Incorrect values (password or phone_number)"
+                       });
+                }
+                if(result){
+                    ChildDb.find({}).then(child =>{
+                        
+                        Transport_listDb.find({driver : drivert._id}).then(transport =>{
+                            res.status(200).json({
+                                access:true,
+                                driver_data: drivert,
+                                children_data: child,
+                                transports_data: transport,
+                               });
+                        })
+                    })
+
+                }else{
+                    res.status(403).json({
+                        access:false,
+                        cause: "Incorrect values (password or phone_number)"
+                       });
+                }
+            }
+        )}else{
+            res.status(403).json({
+                access:false,
+                cause: "Driver not found"
+               });
+        }
+    })
+});
 
 router.post('/example', async (req, res) => {
 
