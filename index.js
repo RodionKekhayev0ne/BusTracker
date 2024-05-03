@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const regroutes = require('./registration');
 const procroutes = require('./process');
+const crudroutes = require('./userCrud');
 const cors = require('cors');
 
 // Использование CORS middleware
@@ -26,4 +27,5 @@ app.use(cors(corsOptions));
   
   app.use('', regroutes);
   app.use('', procroutes);
+  app.use('', crudroutes);
 

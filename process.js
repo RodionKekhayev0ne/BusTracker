@@ -16,19 +16,8 @@ const router = express.Router();
 const app = express();
 
 
-async function getAllRecords() {
-    try {
-        return await ChildDb.find({});
-    } catch (err) {
-        console.error('Ошибка при получении данных:', err);
-    }
-}
-router.get('/showStudents/', async (req, res) => {
-    ChildDb.find({}).then(data => {
-            console.log('Все записи из коллекции:', data);
-            res.status(201).json({students: data});
-    });
-});
+
+
 router.post('/create/transportlist/', async (req, res) => {
 
     let transportData
@@ -196,8 +185,7 @@ router.post('/auth/parent', async (req, res) => {
                         cause: "Incorrect values (password or phone_number)"
                        });
                 }
-                if(result){
-                        
+                if(result){     
 
 
                 console.log("success");
@@ -334,6 +322,8 @@ router.post('/auth/driver', async (req, res) => {
         }
     })
 });
+
+
 
 router.post('/example', async (req, res) => {
 
